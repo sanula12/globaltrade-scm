@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+    <persistence-unit name="GlobalTradePU" transaction-type="JTA">
+
+        <!--
+            EclipseLink is the JPA provider bundled inside GlassFish 5.
+            It implements the JPA spec — it does the actual SQL generation.
+        -->
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <!--
+            The JNDI name of our datasource.
+            We will register this datasource in GlassFish admin console later.
+            This is the "phone book entry" — GlassFish will look up this name
+            and give us a connection pool to MySQL.
+        -->
+        <jta-data-source>jdbc/GlobalTradeDS</jta-data-source>
+
+        <!-- List every @Entity class here -->
+        <class>com.globaltrade.entity.Shipment</class>
+        <class>com.globaltrade.entity.Vendor</class>
+        <class>com.globaltrade.entity.Inventory</class>
+        <class>com.globaltrade.entity.AuditLog</class>
+
+        <properties>
+            <!--
+                DDL generation: none = don't auto-create tables.
+                We already ran our schema.sql manually, so we don't want
+                JPA to recreate or modify our tables.
+                Other options: create-tables, drop-and-create-tables
+            -->
+            <property name="eclipselink.ddl-generation" value="none"/>
+
+            <!--
+                Logging level: FINE shows every SQL query JPA generates.
+                Very useful for debugging and learning!
+                Change to WARNING in production.
+            -->
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+
+            <!--
+                Target database: tells EclipseLink to use MySQL-specific SQL syntax.
+                e.g., MySQL uses AUTO_INCREMENT, others use SEQUENCE
+            -->
+            <property name="eclipselink.target-database" value="MySQL"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
