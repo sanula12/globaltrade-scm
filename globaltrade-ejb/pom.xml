@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        This module inherits from the parent POM.
+        <parent> links this child to the parent — it gets all shared settings.
+    -->
+    <parent>
+        <groupId>com.globaltrade</groupId>
+        <artifactId>globaltrade-scm</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>globaltrade-ejb</artifactId>
+    <!--
+        packaging=ejb tells Maven to use the maven-ejb-plugin
+        and produce a .jar file with EJB metadata inside META-INF/
+    -->
+    <packaging>ejb</packaging>
+    <name>GlobalTrade EJB Module</name>
+
+    <dependencies>
+        <!-- Java EE 8 API — inherited version from parent -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+        </dependency>
+
+        <!-- MySQL driver for direct JDBC use in BMT examples -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
+
+        <!-- JUnit 5 for testing -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <!-- Configuration inherited from parent pluginManagement -->
+            </plugin>
+        </plugins>
+    </build>
+</project>

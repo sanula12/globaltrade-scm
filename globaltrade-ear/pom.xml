@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.globaltrade</groupId>
+        <artifactId>globaltrade-scm</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>globaltrade-ear</artifactId>
+    <!--
+        packaging=ear means Maven will produce a .ear file.
+        An EAR (Enterprise Application Archive) is the final deployable unit.
+        It contains:
+        - globaltrade-ejb-1.0-SNAPSHOT.jar  (our EJB module)
+        - globaltrade-web-1.0-SNAPSHOT.war  (our web module)
+        - META-INF/application.xml          (EAR descriptor)
+
+        You deploy the .ear file to GlassFish, and it handles everything.
+        This is the "split directory structure" the assignment requires.
+    -->
+    <packaging>ear</packaging>
+    <name>GlobalTrade Enterprise Archive</name>
+
+    <dependencies>
+        <!-- Include both our modules in the EAR -->
+        <dependency>
+            <groupId>com.globaltrade</groupId>
+            <artifactId>globaltrade-ejb</artifactId>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>com.globaltrade</groupId>
+            <artifactId>globaltrade-web</artifactId>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <version>8</version> <!-- Java EE 8 EAR -->
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <modules>
+                        <!-- Tell the EAR plugin what each module is -->
+                        <ejbModule>
+                            <groupId>com.globaltrade</groupId>
+                            <artifactId>globaltrade-ejb</artifactId>
+                        </ejbModule>
+                        <webModule>
+                            <groupId>com.globaltrade</groupId>
+                            <artifactId>globaltrade-web</artifactId>
+                            <!-- Context root = the URL path prefix for the web app -->
+                            <contextRoot>/globaltrade</contextRoot>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

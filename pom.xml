@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        PARENT POM — This is the root of our multi-module Maven project.
+
+        Think of this like a company headquarters:
+        - It defines shared settings that all child modules inherit
+        - It tells Maven which sub-projects exist (the <modules> section)
+        - Child modules don't repeat themselves — they inherit versions, dependencies, plugins from here
+
+        packaging=pom means this module itself doesn't produce a JAR/WAR —
+        it just orchestrates the build of its child modules.
+    -->
+
+    <groupId>com.globaltrade</groupId>
+    <artifactId>globaltrade-scm</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>GlobalTrade Supply Chain Management System</name>
+
+    <!-- Child modules — Maven will build them in this order -->
+    <modules>
+        <module>globaltrade-ejb</module>   <!-- EJB JAR — business logic, timers, interceptors -->
+        <module>globaltrade-web</module>   <!-- WAR — web/REST layer -->
+        <module>globaltrade-ear</module>   <!-- EAR — final deployable package -->
+    </modules>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Centralize dependency versions here — change once, applies everywhere -->
+        <javaee.version>8.0.1</javaee.version>
+        <mysql.version>8.0.33</mysql.version>
+        <junit.version>5.10.0</junit.version>
+    </properties>
+
+    <!--
+        dependencyManagement = "catalog of available dependencies"
+        Child modules can use these without specifying the version.
+        This ensures all modules use the SAME version of every library.
+    -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Java EE 8 API — this is the ENTIRE Java EE platform in one dependency.
+                 scope=provided means GlassFish already has this at runtime,
+                 we only need it at compile time. We NEVER bundle it in our JAR/WAR. -->
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${javaee.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- MySQL JDBC Driver — needed at runtime to connect to MySQL -->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- JUnit 5 — for unit testing -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- Internal module references — child modules referencing each other -->
+            <dependency>
+                <groupId>com.globaltrade</groupId>
+                <artifactId>globaltrade-ejb</artifactId>
+                <version>${project.version}</version>
+                <type>ejb</type>
+            </dependency>
+            <dependency>
+                <groupId>com.globaltrade</groupId>
+                <artifactId>globaltrade-web</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Maven EJB Plugin — packages EJB modules as .jar with EJB metadata -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ejb-plugin</artifactId>
+                    <version>3.2.1</version>
+                    <configuration>
+                        <ejbVersion>3.2</ejbVersion> <!-- EJB 3.2 is the Java EE 8 version -->
+                    </configuration>
+                </plugin>
+
+                <!-- Maven WAR Plugin — packages web modules as .war -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.4.0</version>
+                </plugin>
+
+                <!-- Maven EAR Plugin — assembles EJB+WAR into a deployable .ear -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+
+                <!-- Surefire — runs JUnit 5 tests -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.1.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

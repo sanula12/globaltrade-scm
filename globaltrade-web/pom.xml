@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.globaltrade</groupId>
+        <artifactId>globaltrade-scm</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>globaltrade-web</artifactId>
+    <!--
+        packaging=war means Maven will produce a .war file.
+        A WAR (Web Application Archive) contains:
+        - Your servlets/REST endpoints
+        - WEB-INF/web.xml (web deployment descriptor)
+        - WEB-INF/lib/ (libraries not provided by the server)
+        - static files (HTML, CSS, JS)
+    -->
+    <packaging>war</packaging>
+    <name>GlobalTrade Web Module</name>
+
+    <dependencies>
+        <!-- Java EE 8 API -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+        </dependency>
+
+        <!--
+            Depend on our own EJB module so the web layer can
+            @EJB-inject and call the EJB services
+        -->
+        <dependency>
+            <groupId>com.globaltrade</groupId>
+            <artifactId>globaltrade-ejb</artifactId>
+            <type>ejb</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <!-- Don't fail if web.xml is missing — we use annotations -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
