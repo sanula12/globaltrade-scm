@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+             http://xmlns.jcp.org/xml/ns/javaee/application_8.xsd"
+             version="8">
+
+    <display-name>GlobalTrade Supply Chain Management System</display-name>
+    <description>
+        Enterprise Java EE application for GlobalTrade Logistics Corporation.
+        Implements timer services, interceptors, transaction management,
+        security architecture, and exception handling for global supply chain
+        operations across 50+ countries.
+    </description>
+
+    <!--
+        EJB Module — contains all session beans, interceptors, timer services.
+        This is the "business tier" of our split directory structure.
+        Can be updated and redeployed independently of the web module.
+    -->
+    <module>
+        <ejb>globaltrade-ejb-1.0-SNAPSHOT.jar</ejb>
+    </module>
+
+    <!--
+        Web Module — contains servlets and web configuration.
+        This is the "presentation tier" of our split directory structure.
+        context-root = the URL prefix for all web endpoints.
+        URL: http://localhost:8080/globaltrade/shipments
+    -->
+    <module>
+        <web>
+            <web-uri>globaltrade-web-1.0-SNAPSHOT.war</web-uri>
+            <context-root>/globaltrade</context-root>
+        </web>
+    </module>
+
+</application>
