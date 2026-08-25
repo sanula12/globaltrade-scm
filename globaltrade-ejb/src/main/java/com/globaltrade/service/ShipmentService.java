@@ -38,7 +38,6 @@ public class ShipmentService {
 
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 @RolesAllowed({"LOGISTICS_COORDINATOR", "ADMIN"})
-@Interceptors({AuditInterceptor.class,PerformanceInterceptor.class, ValidationInterceptor.class})
 public Shipment createShipment(Shipment shipment) {
 
     logger.info("Creating shipment" + shipment.getTrackingNumber());
@@ -61,7 +60,7 @@ public Shipment createShipment(Shipment shipment) {
     em.persist(shipment);
     logger.info("Shipment created with tracking number: " + shipment.getTrackingNumber());
     return shipment;
-};
+}
 
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 @PermitAll
@@ -135,7 +134,7 @@ public Shipment updateShipmentStatus(Long shipmentId, ShipmentStatus newStatus){
 
     shipment.setStatus(newStatus);
 
-    if(newStatus == ShipmentStatus.DELAYED){
+    if(newStatus == ShipmentStatus.DELIVERED){
         shipment.setActualDelivery(LocalDate.now());
     }
 
