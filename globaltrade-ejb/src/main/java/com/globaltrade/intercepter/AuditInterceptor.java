@@ -4,6 +4,7 @@ import com.globaltrade.entity.AuditLog;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
+import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,7 @@ public class AuditInterceptor {
     @Resource
     private SessionContext sessionContext;
 
+    @AroundInvoke
     public Object auditMethodCall(InvocationContext context) throws Exception{
 
         String methodName = context.getTarget().getClass().getSimpleName()
@@ -36,7 +38,7 @@ public class AuditInterceptor {
             callUser = "system-timer";
         }
 
-        logger.info("[AUDIT]" + callUser + "calling" + methodName);
+        logger.info("[AUDIT] " + callUser + "calling" + methodName);
 
         long startTime = System.currentTimeMillis();
         boolean success = true;
