@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC
+        "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN"
+        "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+
+<resources>
+    <!--
+        Connection Pool — GlassFish manages a POOL of database connections.
+
+        WHY a pool? Creating a new DB connection is EXPENSIVE (~50-200ms).
+        With a pool:
+        - GlassFish pre-creates connections at startup
+        - EJBs borrow a connection, use it, return it to the pool
+        - Much faster (borrows take ~1ms vs ~100ms to create fresh)
+
+        This is an EJB Best Practice: always use connection pooling.
+
+        pool-resize-quantity: when pool needs to grow, add 2 connections at a time
+        max-pool-size: never exceed 32 connections (protects MySQL from overload)
+        idle-timeout-in-seconds: close idle connections after 5 minutes
+    -->
+    <jdbc-connection-pool
+            name                         = "GlobalTradePool"
+            resource-type                = "javax.sql.DataSource"
+            datasource-classname         = "com.mysql.cj.jdbc.MysqlDataSource"
+            is-isolation-level-guaranteed= "true"
+            transaction-isolation-level  = "read-committed"
+            pool-resize-quantity         = "2"
+            max-pool-size                = "32"
+            min-pool-size                = "5"
+            idle-timeout-in-seconds      = "300"
+            max-wait-time-in-millis      = "6000">
+
+        <!-- MySQL connection properties -->
+        <property name="serverName"         value="localhost"/>
+        <property name="portNumber"         value="3306"/>
+        <property name="databaseName"       value="globaltrade_scm"/>
+        <property name="user"               value="root"/>
+        <!-- CHANGE THIS to your actual MySQL password -->
+        <property name="password"           value="Kumuisha#123"/>
+        <property name="useSSL"             value="false"/>
+        <property name="allowPublicKeyRetrieval" value="true"/>
+        <property name="serverTimezone"     value="UTC"/>
+    </jdbc-connection-pool>
+
+    <!--
+        JDBC Resource — the JNDI name that our persistence.xml references.
+        This is the "phone book entry" we discussed earlier.
+        Name MUST match exactly: jdbc/GlobalTradeDS
+    -->
+    <jdbc-resource
+            pool-name   = "GlobalTradePool"
+            jndi-name   = "jdbc/GlobalTradeDS"
+            enabled     = "true"
+            description = "GlobalTrade SCM MySQL Datasource"/>
+
+</resources>
