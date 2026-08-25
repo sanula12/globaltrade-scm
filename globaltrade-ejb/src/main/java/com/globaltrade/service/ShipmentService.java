@@ -38,6 +38,7 @@ public class ShipmentService {
 
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 @RolesAllowed({"LOGISTICS_COORDINATOR", "ADMIN"})
+@Interceptors(ValidationInterceptor.class)
 public Shipment createShipment(Shipment shipment) {
 
     logger.info("Creating shipment" + shipment.getTrackingNumber());

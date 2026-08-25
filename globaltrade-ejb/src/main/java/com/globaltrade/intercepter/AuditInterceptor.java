@@ -38,7 +38,7 @@ public class AuditInterceptor {
             callUser = "system-timer";
         }
 
-        logger.info("[AUDIT] " + callUser + "calling" + methodName);
+        logger.info("[AUDIT] " + callUser + "calling " + methodName);
 
         long startTime = System.currentTimeMillis();
         boolean success = true;
