@@ -14,7 +14,7 @@ public class Shipment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "tracking_number", nullable = false, unique = true, length = 50)
     private String trackingNumber;
