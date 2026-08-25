@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <display-name>GlobalTrade Supply Chain Management</display-name>
+
+    <!--
+        Security Roles — declare all roles used in the application.
+        These must match the roles used in @RolesAllowed annotations.
+        GlassFish maps these to actual users/groups in its security realm.
+    -->
+    <security-role>
+        <role-name>ADMIN</role-name>
+    </security-role>
+    <security-role>
+        <role-name>LOGISTICS_COORDINATOR</role-name>
+    </security-role>
+    <security-role>
+        <role-name>WAREHOUSE_MANAGER</role-name>
+    </security-role>
+    <security-role>
+        <role-name>VENDOR_REPRESENTATIVE</role-name>
+    </security-role>
+    <security-role>
+        <role-name>CUSTOMS_AGENT</role-name>
+    </security-role>
+
+    <!--
+        Security Constraint — protects URL patterns.
+        This is declarative web-layer security (before requests even
+        reach the servlet). Works with EJB @RolesAllowed for defence-in-depth.
+    -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Shipment API</web-resource-name>
+            <url-pattern>/shipments/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <!-- All authenticated roles can access the web layer -->
+            <!-- Fine-grained control is handled by EJB @RolesAllowed -->
+            <role-name>ADMIN</role-name>
+            <role-name>LOGISTICS_COORDINATOR</role-name>
+            <role-name>WAREHOUSE_MANAGER</role-name>
+            <role-name>VENDOR_REPRESENTATIVE</role-name>
+            <role-name>CUSTOMS_AGENT</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!--
+        Login Config — BASIC auth for prototype.
+        In production: FORM-based login with HTTPS.
+        Browser will show a username/password dialog.
+    -->
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>GlobalTradeRealm</realm-name>
+    </login-config>
+
+    <!-- Session timeout: 30 minutes of inactivity -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+</web-app>
