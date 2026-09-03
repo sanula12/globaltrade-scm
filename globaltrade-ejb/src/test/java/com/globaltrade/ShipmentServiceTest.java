@@ -11,10 +11,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.ejb.EJBAccessException;
-import javax.ejb.SessionContext;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import jakarta.ejb.EJBAccessException;
+import jakarta.ejb.SessionContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Arrays;
