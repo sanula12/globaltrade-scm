@@ -6,15 +6,15 @@ import com.globaltrade.intercepter.AuditInterceptor;
 import com.globaltrade.intercepter.PerformanceInterceptor;
 import com.globaltrade.intercepter.ValidationInterceptor;
 
-import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.interceptor.Interceptors;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.ejb.SessionContext;
+import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
+import jakarta.interceptor.Interceptors;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.List;
 import java.util.logging.Logger;
 
