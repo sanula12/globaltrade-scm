@@ -12,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import javax.ejb.SessionContext;
+import jakarta.ejb.SessionContext;
 import java.security.Principal;
 
 import static org.junit.jupiter.api.Assertions.*;
