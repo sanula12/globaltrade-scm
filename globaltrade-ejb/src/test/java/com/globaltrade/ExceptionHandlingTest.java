@@ -28,9 +28,9 @@ class ExceptionHandlingTest {
     void testShipmentNotFoundException_IsApplicationException() {
 
         // @ApplicationException is on the class — verify it's present
-        javax.ejb.ApplicationException annotation =
+        jakarta.ejb.ApplicationException annotation =
                 ShipmentNotFoundException.class
-                        .getAnnotation(javax.ejb.ApplicationException.class);
+                        .getAnnotation(jakarta.ejb.ApplicationException.class);
 
         assertNotNull(annotation,
                 "ShipmentNotFoundException must have @ApplicationException");
@@ -44,9 +44,9 @@ class ExceptionHandlingTest {
     @DisplayName("InventoryShortageException should rollback transaction")
     void testInventoryShortageException_ShouldRollback() {
 
-        javax.ejb.ApplicationException annotation =
+        jakarta.ejb.ApplicationException annotation =
                 InventoryShortageException.class
-                        .getAnnotation(javax.ejb.ApplicationException.class);
+                        .getAnnotation(jakarta.ejb.ApplicationException.class);
 
         assertNotNull(annotation,
                 "InventoryShortageException must have @ApplicationException");
@@ -60,9 +60,9 @@ class ExceptionHandlingTest {
     @DisplayName("CarrierSystemException should be a System Exception (no annotation)")
     void testCarrierSystemException_IsSystemException() {
 
-        javax.ejb.ApplicationException annotation =
+        jakarta.ejb.ApplicationException annotation =
                 CarrierSystemException.class
-                        .getAnnotation(javax.ejb.ApplicationException.class);
+                        .getAnnotation(jakarta.ejb.ApplicationException.class);
 
         assertNull(annotation,
                 "CarrierSystemException should NOT have @ApplicationException" +
@@ -105,9 +105,9 @@ class ExceptionHandlingTest {
     @DisplayName("CustomsException should have rollback=true for data integrity")
     void testCustomsException_RollbackTrue() {
 
-        javax.ejb.ApplicationException annotation =
+        jakarta.ejb.ApplicationException annotation =
                 CustomsException.class
-                        .getAnnotation(javax.ejb.ApplicationException.class);
+                        .getAnnotation(jakarta.ejb.ApplicationException.class);
 
         assertNotNull(annotation);
         assertTrue(annotation.rollback(),
