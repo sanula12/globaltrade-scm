@@ -4,8 +4,8 @@ import com.globaltrade.entity.Shipment;
 import com.globaltrade.entity.Vendor;
 import com.globaltrade.exception.VendorValidationException;
 
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
+import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.InvocationContext;
 import java.util.logging.Logger;
 
 public class ValidationInterceptor {

@@ -1,6 +1,6 @@
 package com.globaltrade.exception;
 
-import javax.ejb.ApplicationException;
+import jakarta.ejb.ApplicationException;
 
 @ApplicationException(rollback = false)
 public class VendorValidationException extends RuntimeException {

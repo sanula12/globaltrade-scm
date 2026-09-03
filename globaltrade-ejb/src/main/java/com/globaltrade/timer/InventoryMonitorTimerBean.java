@@ -4,7 +4,8 @@ import com.globaltrade.service.InventoryService;
 import com.globaltrade.service.VendorService;
 import com.globaltrade.entity.Vendor;
 
-import javax.ejb.*;
+import jakarta.annotation.security.RunAs;
+import jakarta.ejb.*;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -24,6 +25,7 @@ import java.util.logging.Logger;
  * so we can maintain counters and state between firings.
  */
 @Singleton
+@RunAs("ADMIN")
 public class InventoryMonitorTimerBean {
 
     private static final Logger logger =

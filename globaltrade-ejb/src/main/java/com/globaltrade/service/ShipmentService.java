@@ -10,13 +10,13 @@ import com.globaltrade.intercepter.AuditInterceptor;
 import com.globaltrade.intercepter.PerformanceInterceptor;
 import com.globaltrade.intercepter.ValidationInterceptor;
 
-import javax.annotation.Resource;
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.*;
-import javax.interceptor.Interceptors;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.ejb.*;
+import jakarta.interceptor.Interceptors;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -38,8 +38,8 @@ public class ShipmentService {
 
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 @RolesAllowed({"LOGISTICS_COORDINATOR", "ADMIN"})
-@Interceptors({AuditInterceptor.class,PerformanceInterceptor.class, ValidationInterceptor.class})
-public Shipment creShipment(Shipment shipment) {
+@Interceptors(ValidationInterceptor.class)
+public Shipment createShipment(Shipment shipment) {
 
     logger.info("Creating shipment" + shipment.getTrackingNumber());
 
@@ -61,7 +61,7 @@ public Shipment creShipment(Shipment shipment) {
     em.persist(shipment);
     logger.info("Shipment created with tracking number: " + shipment.getTrackingNumber());
     return shipment;
-};
+}
 
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 @PermitAll
@@ -135,7 +135,7 @@ public Shipment updateShipmentStatus(Long shipmentId, ShipmentStatus newStatus){
 
     shipment.setStatus(newStatus);
 
-    if(newStatus == ShipmentStatus.DELAYED){
+    if(newStatus == ShipmentStatus.DELIVERED){
         shipment.setActualDelivery(LocalDate.now());
     }
 

@@ -4,13 +4,15 @@ import com.globaltrade.entity.Shipment;
 import com.globaltrade.entity.ShipmentStatus;
 import com.globaltrade.service.ShipmentService;
 
-import javax.annotation.Resource;
-import javax.ejb.*;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.RunAs;
+import jakarta.ejb.*;
 import java.util.List;
 import java.util.logging.Logger;
 
 
 @Stateless
+@RunAs("ADMIN")
 public class ShipmentTrackingTimerBean {
 
     private static final Logger logger =

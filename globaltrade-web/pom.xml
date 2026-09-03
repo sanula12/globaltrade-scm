@@ -26,8 +26,8 @@
     <dependencies>
         <!-- Java EE 8 API -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
         </dependency>
 
         <!--
@@ -38,6 +38,7 @@
             <groupId>com.globaltrade</groupId>
             <artifactId>globaltrade-ejb</artifactId>
             <type>ejb</type>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

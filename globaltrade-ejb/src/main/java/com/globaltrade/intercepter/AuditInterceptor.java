@@ -2,23 +2,27 @@ package com.globaltrade.intercepter;
 
 import com.globaltrade.entity.AuditLog;
 
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
-import javax.interceptor.InvocationContext;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import com.globaltrade.service.AuditLogWriter;
+import jakarta.annotation.Resource;
+import jakarta.ejb.EJB;
+import jakarta.ejb.SessionContext;
+import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.InvocationContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.logging.Logger;
 
 public class AuditInterceptor {
 
     private static final Logger logger = Logger.getLogger(AuditInterceptor.class.getName());
 
-    @PersistenceContext(unitName = "GlobalTradePU")
-    private EntityManager em;
+    @EJB
+    private AuditLogWriter auditLogWriter;
 
     @Resource
     private SessionContext sessionContext;
 
+    @AroundInvoke
     public Object auditMethodCall(InvocationContext context) throws Exception{
 
         String methodName = context.getTarget().getClass().getSimpleName()
@@ -36,7 +40,7 @@ public class AuditInterceptor {
             callUser = "system-timer";
         }
 
-        logger.info("[AUDIT]" + callUser + "calling" + methodName);
+        logger.info("[AUDIT] " + callUser + "calling " + methodName);
 
         long startTime = System.currentTimeMillis();
         boolean success = true;
@@ -69,13 +73,11 @@ public class AuditInterceptor {
     }
 
     private void saveAuditLog(String methodName, String callUser, long duration, boolean success, String errorMessage) {
-
-        try{
-            if(em != null){
-                AuditLog log = new AuditLog(methodName, callUser, duration, success, errorMessage);
-                em.persist(log);
+        try {
+            if (auditLogWriter != null) {
+                auditLogWriter.write(methodName, callUser, duration, success, errorMessage);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.severe("[AUDIT] Failed to save audit log to DB: " + e.getMessage());
         }
     }
