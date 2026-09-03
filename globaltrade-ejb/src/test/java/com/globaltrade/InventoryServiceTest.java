@@ -9,9 +9,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.ejb.SessionContext;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import jakarta.ejb.SessionContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.Collections;
 
