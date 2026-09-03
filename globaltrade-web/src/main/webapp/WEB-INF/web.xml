@@ -36,15 +36,43 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Shipment API</web-resource-name>
-            <url-pattern>/shipments/*</url-pattern>
+            <url-pattern>/shipments</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
             <http-method>PUT</http-method>
             <http-method>DELETE</http-method>
         </web-resource-collection>
         <auth-constraint>
-            <!-- All authenticated roles can access the web layer -->
-            <!-- Fine-grained control is handled by EJB @RolesAllowed -->
+            <role-name>ADMIN</role-name>
+            <role-name>LOGISTICS_COORDINATOR</role-name>
+            <role-name>WAREHOUSE_MANAGER</role-name>
+            <role-name>VENDOR_REPRESENTATIVE</role-name>
+            <role-name>CUSTOMS_AGENT</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Inventory API</web-resource-name>
+            <url-pattern>/inventory</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>PUT</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMIN</role-name>
+            <role-name>LOGISTICS_COORDINATOR</role-name>
+            <role-name>WAREHOUSE_MANAGER</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Me API</web-resource-name>
+            <url-pattern>/me</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
             <role-name>ADMIN</role-name>
             <role-name>LOGISTICS_COORDINATOR</role-name>
             <role-name>WAREHOUSE_MANAGER</role-name>
@@ -60,7 +88,7 @@
     -->
     <login-config>
         <auth-method>BASIC</auth-method>
-        <realm-name>GlobalTradeRealm</realm-name>
+        <realm-name>file</realm-name>
     </login-config>
 
     <!-- Session timeout: 30 minutes of inactivity -->
