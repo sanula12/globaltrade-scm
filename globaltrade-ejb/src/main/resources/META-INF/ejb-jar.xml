@@ -5,11 +5,8 @@
          http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"
          version="3.2">
 
+    
     <display-name>GlobalTrade EJB Module</display-name>
-    <description>
-        Enterprise Java Bean module for GlobalTrade Supply Chain Management.
-        Contains Timer Services, Interceptors, Security, and Transaction Management.
-    </description>
 
     <!--
         ejb-jar.xml is the XML alternative/complement to EJB annotations.
@@ -33,10 +30,7 @@
             <ejb-class>com.globaltrade.service.ShipmentService</ejb-class>
             <session-type>Stateless</session-type>
             <transaction-type>Container</transaction-type>
-            <description>
-                Core shipment management service. Handles creation,
-                tracking, status updates, and customs clearance operations.
-            </description>
+            
         </session>
 
         <!-- InventoryService EJB declaration -->
@@ -45,10 +39,7 @@
             <ejb-class>com.globaltrade.service.InventoryService</ejb-class>
             <session-type>Stateless</session-type>
             <transaction-type>Container</transaction-type>
-            <description>
-                Inventory management service. Monitors stock levels,
-                handles reservations, and triggers reorder alerts.
-            </description>
+            
         </session>
 
         <!-- VendorService EJB declaration -->
@@ -57,10 +48,7 @@
             <ejb-class>com.globaltrade.service.VendorService</ejb-class>
             <session-type>Stateless</session-type>
             <transaction-type>Container</transaction-type>
-            <description>
-                Vendor management service. Handles vendor registration,
-                performance scoring, and status management.
-            </description>
+            
         </session>
 
         <!-- ConfigurationBean — Singleton EJB -->
@@ -69,10 +57,7 @@
             <ejb-class>com.globaltrade.service.ConfigurationBean</ejb-class>
             <session-type>Singleton</session-type>
             <transaction-type>Container</transaction-type>
-            <description>
-                Application-wide configuration singleton.
-                Initialised at startup, provides shared settings.
-            </description>
+            
         </session>
 
         <!-- SecurityService EJB declaration -->
@@ -81,10 +66,7 @@
             <ejb-class>com.globaltrade.security.SecurityService</ejb-class>
             <session-type>Stateless</session-type>
             <transaction-type>Container</transaction-type>
-            <description>
-                Centralised programmatic security service.
-                Provides role-based and ownership-based access control.
-            </description>
+            
         </session>
 
         <!-- Timer Beans -->
@@ -93,11 +75,7 @@
             <ejb-class>com.globaltrade.timer.ShipmentTrackingTimerBean</ejb-class>
             <session-type>Stateless</session-type>
             <transaction-type>Container</transaction-type>
-            <description>
-                Automated shipment tracking via declarative (@Schedule)
-                and programmatic timers. Detects overdue shipments and
-                customs deadline breaches.
-            </description>
+            
         </session>
 
         <session>
@@ -105,10 +83,7 @@
             <ejb-class>com.globaltrade.timer.InventoryMonitorTimerBean</ejb-class>
             <session-type>Singleton</session-type>
             <transaction-type>Container</transaction-type>
-            <description>
-                Automated inventory monitoring. Checks stock levels every
-                6 hours and performs daily vendor performance review.
-            </description>
+            
         </session>
 
     </enterprise-beans>
