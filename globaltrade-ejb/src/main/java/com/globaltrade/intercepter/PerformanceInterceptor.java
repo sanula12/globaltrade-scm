@@ -1,8 +1,8 @@
 package com.globaltrade.intercepter;
 
 
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
+import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.InvocationContext;
 import java.util.logging.Logger;
 
 public class PerformanceInterceptor {
