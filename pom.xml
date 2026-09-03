@@ -35,7 +35,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Centralize dependency versions here — change once, applies everywhere -->
-        <javaee.version>8.0.1</javaee.version>
+        <javaee.version>10.0.0</javaee.version>
         <mysql.version>8.0.33</mysql.version>
         <junit.version>5.10.0</junit.version>
     </properties>
@@ -51,8 +51,8 @@
                  scope=provided means GlassFish already has this at runtime,
                  we only need it at compile time. We NEVER bundle it in our JAR/WAR. -->
             <dependency>
-                <groupId>javax</groupId>
-                <artifactId>javaee-api</artifactId>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-api</artifactId>
                 <version>${javaee.version}</version>
                 <scope>provided</scope>
             </dependency>
