@@ -1,6 +1,6 @@
 package com.globaltrade.exception;
 
-import javax.ejb.ApplicationException;
+import jakarta.ejb.ApplicationException;
 
 @ApplicationException(rollback = true)
 public class InventoryShortageException extends RuntimeException {
