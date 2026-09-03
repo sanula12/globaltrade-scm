@@ -4,8 +4,8 @@ import com.globaltrade.service.InventoryService;
 import com.globaltrade.service.VendorService;
 import com.globaltrade.entity.Vendor;
 
-import javax.annotation.security.RunAs;
-import javax.ejb.*;
+import jakarta.annotation.security.RunAs;
+import jakarta.ejb.*;
 import java.util.List;
 import java.util.logging.Logger;
 
