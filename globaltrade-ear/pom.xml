@@ -46,7 +46,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
                 <configuration>
-                    <version>8</version> <!-- Java EE 8 EAR -->
+                    <version>10</version>
+                    <generateApplicationXml>true</generateApplicationXml> <!-- Java EE 8 EAR -->
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <modules>
                         <!-- Tell the EAR plugin what each module is -->
